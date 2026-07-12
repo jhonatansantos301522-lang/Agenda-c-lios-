@@ -1,0 +1,55 @@
+import React, { useState } from 'react';
+
+export default function App() {
+  const [agendamentos, setAgendamentos] = useState([]);
+  const [nome, setNome] = useState('');
+  const [data, setData] = useState('');
+
+  const agendar = () => {
+    if (nome && data) {
+      setAgendamentos([...agendamentos, { nome, data }]);
+      setNome('');
+      setData('');
+      alert('Agendamento realizado! 🎉');
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 p-8">
+      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+        <h1 className="text-3xl font-bold text-pink-600 mb-8">💅 Agenda de Cílios</h1>
+        
+        <div className="space-y-4 mb-8">
+          <input
+            type="text"
+            placeholder="Seu nome"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-pink-300 rounded-lg"
+          />
+          <input
+            type="date"
+            value={data}
+            onChange={(e) => setData(e.target.value)}
+            className="w-full px-4 py-3 border-2 border-pink-300 rounded-lg"
+          />
+          <button
+            onClick={agendar}
+            className="w-full bg-pink-500 text-white py-3 rounded-lg font-bold hover:bg-pink-600"
+          >
+            Agendar
+          </button>
+        </div>
+
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Agendamentos:</h2>
+        <div className="space-y-2">
+          {agendamentos.map((a, i) => (
+            <div key={i} className="bg-pink-100 p-4 rounded-lg">
+              <p><strong>{a.nome}</strong> - {a.data}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
